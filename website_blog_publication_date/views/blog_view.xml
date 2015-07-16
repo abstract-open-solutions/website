@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_blog_post_form_author">
+            <field name="name">blog.post.form.author</field>
+            <field name="model">blog.post</field>
+            <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Technical']" position='inside'>
+                    <field name="publication_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_blog_post_tree_author">
+            <field name="name">blog.post.tree.author</field>
+            <field name="model">blog.post</field>
+            <field name="inherit_id" ref="website_blog.view_blog_post_list"/>
+            <field name="arch" type="xml">
+                <field name="write_date" position="after">
+                    <field name="publication_date"/>
+                </field>
+            </field>
+        </record>
+
+        <template id="blog_latest_pub_date" inherit_id="website_blog.latest_blogs"
+            name="Force Publication Date">
+            <xpath expr="//span[@t-field='post.create_date']" position="replace">
+                <span t-field="post.publication_date"/>
+            </xpath>
+        </template>
+
+        <template id="blog_short_pub_date" inherit_id="website_blog.blog_post_short"
+            name="Force Publication Date">
+            <xpath expr="//span[@t-field='blog_post.create_date']" position="replace">
+                <span t-field="blog_post.publication_date" t-field-options='{"format": "d MMMM yyyy"}'/>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>
